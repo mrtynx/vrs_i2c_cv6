@@ -23,8 +23,8 @@
 #include "i2c.h"
 #include "gpio.h"
 #include "usart.h"
-#include "lis3mdltr.h"
-#include "lsm6ds0.h"
+#include "lps25hb.h"
+#include "hts221.h"
 #include "stdio.h"
 #include "string.h"
 #include "dma.h"
@@ -33,7 +33,7 @@
 
 uint8_t temp = 0;
 float mag[3], acc[3];
-char formated_text[30], value_x[10], value_y[10], value_z[10];
+char formated_text[50], value_x[10], value_y[10], value_z[10];
 
 void SystemClock_Config(void);
 
@@ -52,16 +52,24 @@ int main(void)
   MX_DMA_Init();
   MX_USART2_UART_Init();
 
-  lsm6ds0_init();
+//  lsm6ds0_init();
 
   while (1)
   {
-	  //os			   x      y        z
-	  lsm6ds0_get_acc(acc, (acc+1), (acc+2));
-	  memset(formated_text, '\0', sizeof(formated_text));
-	  sprintf(formated_text, "%0.4f,%0.4f,%0.4f\r", acc[0], acc[1], acc[2]);
+//	  //hts 221 ack
+//	  uint8_t val = hts221_read_byte(HTS221_WHO_AM_I_ADDRESS);
+//	  memset(formated_text,'\0', sizeof(formated_text));
+//	  sprintf(formated_text, " hts221 ack read val: %d, true val: %d\r", val, HTS221_WHO_AM_I_VALUE);
+//	  USART2_PutBuffer((uint8_t*)formated_text, strlen(formated_text));
+//	  LL_mDelay(1000);
+
+	  //lps25hb ack
+	  uint8_t val2 = lps25hb_read_byte(LPS25HB_WHO_AM_I_ADDRESS);
+	  memset(formated_text,'\0', sizeof(formated_text));
+	  sprintf(formated_text, " lps25hb ack read val: %d, true val: %d\r", val2, LPS25HB_WHO_AM_I_VALUE);
 	  USART2_PutBuffer((uint8_t*)formated_text, strlen(formated_text));
-	  LL_mDelay(10);
+	  LL_mDelay(1000);
+
   }
 }
 
