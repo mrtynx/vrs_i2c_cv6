@@ -2,7 +2,7 @@
 #include "i2c.h"
 
 #define LPS25HB_I2C_DEV_ADDRESS_READ			0xBB
-#define LPS25HB_I2C_DEV_ADDRESS_WRITE			0XB8
+#define LPS25HB_I2C_DEV_ADDRESS_WRITE			0XBA
 
 #define LPS25HB_REF_P_XL						0X08
 #define LPS25HB_REF_P_L							0X09

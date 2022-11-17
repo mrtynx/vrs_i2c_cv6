@@ -31,9 +31,11 @@
 
 #define CHAR_BUFF_SIZE	30
 
-uint8_t temp = 0;
+double temp = 0.0;
+double humidity = 0.0;
+
 float mag[3], acc[3];
-char formated_text[50], value_x[10], value_y[10], value_z[10];
+char formated_text[128], value_x[10], value_y[10], value_z[10];
 
 void SystemClock_Config(void);
 
@@ -52,7 +54,7 @@ int main(void)
   MX_DMA_Init();
   MX_USART2_UART_Init();
 
-//  lsm6ds0_init();
+  hts221_init();
 
   while (1)
   {
@@ -64,11 +66,19 @@ int main(void)
 //	  LL_mDelay(1000);
 
 	  //lps25hb ack
-	  uint8_t val2 = lps25hb_read_byte(LPS25HB_WHO_AM_I_ADDRESS);
+//	  uint8_t val2 = lps25hb_read_byte(LPS25HB_WHO_AM_I_ADDRESS);
+//	  memset(formated_text,'\0', sizeof(formated_text));
+//	  sprintf(formated_text, " lps25hb ack read val: %d, true val: %d\r", val2, LPS25HB_WHO_AM_I_VALUE);
+//	  USART2_PutBuffer((uint8_t*)formated_text, strlen(formated_text));
+//	  LL_mDelay(1000);
+	  temp = hts221_get_temp();
+	  humidity = hts221_get_humidity();
+
 	  memset(formated_text,'\0', sizeof(formated_text));
-	  sprintf(formated_text, " lps25hb ack read val: %d, true val: %d\r", val2, LPS25HB_WHO_AM_I_VALUE);
+	  sprintf(formated_text, "Temperature: %2.1f | Humidity: %2.2f \r", temp, humidity);
 	  USART2_PutBuffer((uint8_t*)formated_text, strlen(formated_text));
 	  LL_mDelay(1000);
+
 
   }
 }
