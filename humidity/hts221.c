@@ -38,6 +38,8 @@ uint8_t hts221_init(void)
 		return 0;
 	}
 
+	// Device configuration
+
 	uint8_t ctrl1 = HTS221_CTRL1_POWER_UP | HTS221_CTRL1_FAST_ODR;
 	uint8_t avg   = HTS221_AVGT_DEFAULT	| HTS221_AVGH_HI_RES;
 

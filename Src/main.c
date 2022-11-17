@@ -33,9 +33,11 @@
 
 double temp = 0.0;
 double humidity = 0.0;
+double pressure = 0.0;
+double altitude = 0.0;
 
 float mag[3], acc[3];
-char formated_text[128], value_x[10], value_y[10], value_z[10];
+char formated_text[256], value_x[10], value_y[10], value_z[10];
 
 void SystemClock_Config(void);
 
@@ -55,6 +57,7 @@ int main(void)
   MX_USART2_UART_Init();
 
   hts221_init();
+  lps25hb_init();
 
   while (1)
   {
@@ -73,9 +76,11 @@ int main(void)
 //	  LL_mDelay(1000);
 	  temp = hts221_get_temp();
 	  humidity = hts221_get_humidity();
+	  pressure = lps25hb_get_pressure();
+	  altitude = lps25hb_get_altitude(pressure);
 
 	  memset(formated_text,'\0', sizeof(formated_text));
-	  sprintf(formated_text, "Temperature: %2.1f | Humidity: %2.2f \r", temp, humidity);
+	  sprintf(formated_text, "Temperature: %2.1f | Humidity: %2.2f | Pressure: %4.2f | Altitude: %3.2f\r", temp, humidity, pressure, altitude);
 	  USART2_PutBuffer((uint8_t*)formated_text, strlen(formated_text));
 	  LL_mDelay(1000);
 

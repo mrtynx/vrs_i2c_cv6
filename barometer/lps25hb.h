@@ -39,11 +39,16 @@
 #define LPS25HB_RPDS_L							0X39
 #define LPS25HB_RPDS_H							0X3A
 
+// Control configuration
+
+#define LPS25HB_POWER_ON						(1 << 7)
+#define LPS25HB_ODR_FAST						(0x4 << 4)
 
 uint8_t lps25hb_init(void);
 uint8_t lps25hb_read_byte(uint8_t reg_addr);
 
-int8_t lps25hb_get_temp();
+double lps25hb_get_pressure();
+double lps25hb_get_altitude(double pressure);
 
 void lps25hb_write_byte(uint8_t reg_addr, uint8_t value);
 void lps25hb_readArray(uint8_t * data, uint8_t reg, uint8_t length);
