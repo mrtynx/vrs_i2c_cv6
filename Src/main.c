@@ -65,19 +65,7 @@ int main(void)
 
   while (1)
   {
-//	  //hts 221 ack
-//	  uint8_t val = hts221_read_byte(HTS221_WHO_AM_I_ADDRESS);
-//	  memset(formated_text,'\0', sizeof(formated_text));
-//	  sprintf(formated_text, " hts221 ack read val: %d, true val: %d\r", val, HTS221_WHO_AM_I_VALUE);
-//	  USART2_PutBuffer((uint8_t*)formated_text, strlen(formated_text));
-//	  LL_mDelay(1000);
 
-	  //lps25hb ack
-//	  uint8_t val2 = lps25hb_read_byte(LPS25HB_WHO_AM_I_ADDRESS);
-//	  memset(formated_text,'\0', sizeof(formated_text));
-//	  sprintf(formated_text, " lps25hb ack read val: %d, true val: %d\r", val2, LPS25HB_WHO_AM_I_VALUE);
-//	  USART2_PutBuffer((uint8_t*)formated_text, strlen(formated_text));
-//	  LL_mDelay(1000);
 	  temp = hts221_get_temp();
 	  humidity = hts221_get_humidity();
 	  pressure = lps25hb_get_pressure();
