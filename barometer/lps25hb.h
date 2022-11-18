@@ -48,7 +48,8 @@ uint8_t lps25hb_init(void);
 uint8_t lps25hb_read_byte(uint8_t reg_addr);
 
 double lps25hb_get_pressure();
-double lps25hb_get_altitude(double pressure);
+double lps25hb_get_altitude(double P, double T);
+double lps25hb_get_delta_z(double initial_altitude, double P, double T);
 
 void lps25hb_write_byte(uint8_t reg_addr, uint8_t value);
 void lps25hb_readArray(uint8_t * data, uint8_t reg, uint8_t length);

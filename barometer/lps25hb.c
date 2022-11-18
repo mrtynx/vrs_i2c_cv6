@@ -66,14 +66,13 @@ double lps25hb_get_pressure()
 }
 
 // Aj ked tato funkcia nie je zavisla od konkretneho senzora, rozhodol som sa dat ju sem...
-double lps25hb_get_altitude(double pressure)
+double lps25hb_get_altitude(double P, double T)
 {
-	double altitude =
-					- 1.345*pow(10, -11)*pow(pressure,5)
-					+ 5.875*pow(10, -8)*pow(pressure,4)
-					- 0.0001038*pow(pressure,3)
-					+ 0.09745*pow(pressure,2)
-					- 59.44*pressure
-					+ 2.065*pow(10, 4);
-	return altitude;
+	return (pow(1013.25/P,1/5.257) - 1) * (T + 273.15) / 0.0065;
+
+}
+
+double lps25hb_get_delta_z(double initial_altitude, double P, double T)
+{
+	return initial_altitude - lps25hb_get_altitude(P, T);
 }
