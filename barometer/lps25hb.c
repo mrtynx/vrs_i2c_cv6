@@ -74,5 +74,5 @@ double lps25hb_get_altitude(double P, double T)
 
 double lps25hb_get_delta_z(double initial_altitude, double P, double T)
 {
-	return initial_altitude - lps25hb_get_altitude(P, T);
+	return lps25hb_get_altitude(P, T) - initial_altitude;
 }

@@ -61,6 +61,8 @@ int main(void)
   hts221_init();
   lps25hb_init();
 
+  LL_mDelay(100);
+
   double initial_altitude = lps25hb_get_altitude(lps25hb_get_pressure(), hts221_get_temp());
 
   while (1)
@@ -73,7 +75,7 @@ int main(void)
 	  d_z = lps25hb_get_delta_z(initial_altitude, pressure, temp);
 
 	  memset(formated_text,'\0', sizeof(formated_text));
-	  sprintf(formated_text, "Temperature: %2.1f | Humidity: %2.2f | Pressure: %4.2f | Altitude: %3.2f\ | Delta Z: %3.2f \r", temp, humidity, pressure, altitude, d_z);
+	  sprintf(formated_text, "Temperature [C]: %2.1f , Rel. humidity [%%]: %2.2f , Atm. pressure [hPa]: %4.2f , Rel. height [m]: %3.2f \r", temp, humidity, pressure, d_z);
 	  USART2_PutBuffer((uint8_t*)formated_text, strlen(formated_text));
 	  LL_mDelay(1000);
 
